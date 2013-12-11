@@ -34,7 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -68,6 +71,12 @@
   <ItemGroup>
     <Compile Include="Code\ADO.NET\UserRepository.cs" />
     <Compile Include="Code\BaseRepository.cs" />
+    <Compile Include="Code\EntityFramework\EntityFrameworkModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityFrameworkModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Code\EntityFramework\UserRepository.cs" />
     <Compile Include="Code\IUserRepository.cs" />
     <Compile Include="Code\LINQ.to.SQL\LinqToSqlDbContext.designer.cs">
       <AutoGen>True</AutoGen>
@@ -90,6 +99,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EntityDeploy Include="Code\EntityFramework\EntityFrameworkModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityFrameworkModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Code\LINQ.to.SQL\LinqToSqlDbContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>LinqToSqlDbContext.designer.cs</LastGenOutput>

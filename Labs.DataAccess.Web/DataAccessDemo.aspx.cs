@@ -1,6 +1,5 @@
 ﻿using System;
 using Labs.DataAccess.Web.Code;
-using Labs.DataAccess.Web.Code.ADO.NET;
 
 namespace Labs.DataAccess.Web
 {
@@ -16,7 +15,7 @@ namespace Labs.DataAccess.Web
                 int userId;
                 if (!int.TryParse(txtUserId.Text, out userId))
                 {
-                    throw new Exception("Ops - the user did not enter a valid user id - should be caught by input validation at an earlier stage!");    
+                    throw new Exception("Ooouups - the user did not enter a valid user id - should be caught by input validation at an earlier stage!");    
                 }
 
                 return userId;
@@ -30,7 +29,7 @@ namespace Labs.DataAccess.Web
 
         protected void btnSearchUsingAdo_OnClick(object sender, EventArgs e)
         {
-            var userRepo = new Labs.DataAccess.Web.Code.ADO.NET.UserRepository();
+            var userRepo = new Code.ADO.NET.UserRepository();
             var user = userRepo.GetUser(UserId);
 
             RenderSearchResult(user);
@@ -38,7 +37,15 @@ namespace Labs.DataAccess.Web
 
         protected void btnSearchUsingLinqToSql_OnClick(object sender, EventArgs e)
         {
-            var userRepo = new Labs.DataAccess.Web.Code.LINQ.to.SQL.UserRepository();
+            var userRepo = new Code.LINQ.to.SQL.UserRepository();
+            var user = userRepo.GetUser(UserId);
+
+            RenderSearchResult(user);
+        }
+
+        protected void btnSearchUsingEntityFramework_OnClick(object sender, EventArgs e)
+        {
+            var userRepo = new Code.EntityFramework.UserRepository();
             var user = userRepo.GetUser(UserId);
 
             RenderSearchResult(user);
