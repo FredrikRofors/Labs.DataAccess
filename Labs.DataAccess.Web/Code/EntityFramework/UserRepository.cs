@@ -9,10 +9,11 @@ namespace Labs.DataAccess.Web.Code.EntityFramework
     {
         public Code.User GetUser(int id)
         {
-            var context = new EntityFrameworkDbContext();
-
-            var user = context.Users.SingleOrDefault(u => u.Id == id);
-            return Map(user);
+            using (var context = new EntityFrameworkDbContext())
+            {
+                var user = context.Users.SingleOrDefault(u => u.Id == id);
+                return Map(user);    
+            }
         }
 
         /// <summary>
