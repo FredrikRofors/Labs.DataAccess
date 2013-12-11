@@ -19,7 +19,7 @@
          }
         .searchCriteria input {
             margin-left: 10px;
-            margin-right: 30px;
+            margin-right: 20px;
         }
         .searchResult {
             
@@ -44,6 +44,7 @@
         <div class="searchCriteria">
              Enter user id: <asp:TextBox runat="server" ID="txtUserId"></asp:TextBox>
             <asp:Button runat="server" ID="btnSearchUsingAdo" Text="ADO.NET search" OnClick="btnSearchUsingAdo_OnClick"/>
+            <asp:Button runat="server" ID="btnSearchUsingLinqToSql" Text="LINQ to SQL search" OnClick="btnSearchUsingLinqToSql_OnClick"/>
         </div>
 
         <div class="searchResult">

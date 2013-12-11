@@ -9,7 +9,7 @@ namespace Labs.DataAccess.Web.Code.ADO.NET
     /// <summary>
     /// This is a demo implementation showing how to do dataaccess in .NET using good old ADO.NET.
     /// </summary>
-    public class UserRepository : BaseRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
         /// <summary>
         /// Fetches a user by id. 

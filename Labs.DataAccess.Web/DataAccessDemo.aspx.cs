@@ -36,6 +36,14 @@ namespace Labs.DataAccess.Web
             RenderSearchResult(user);
         }
 
+        protected void btnSearchUsingLinqToSql_OnClick(object sender, EventArgs e)
+        {
+            var userRepo = new Labs.DataAccess.Web.Code.LINQ.to.SQL.UserRepository();
+            var user = userRepo.GetUser(UserId);
+
+            RenderSearchResult(user);
+        }
+
 
 
         private void RenderSearchResult(User searchResult)
