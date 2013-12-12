@@ -1,10 +1,25 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
 using Labs.DataAccess.Web.Code;
 
 namespace Labs.DataAccess.Web
 {
     public partial class DataAccessDemo : System.Web.UI.Page
     {
+        private struct SearchResult<T>
+        {
+            /// <summary>
+            /// The actual search result. 
+            /// </summary>
+            public T Data { get; set; }
+
+            /// <summary>
+            /// The time spent executing the search query.
+            /// </summary>
+            public TimeSpan PerformanceCost { get; set; }
+        }
+
         /// <summary>
         /// The user id to search for (entered via the GUI). 
         /// </summary>
@@ -22,47 +37,49 @@ namespace Labs.DataAccess.Web
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnSearchUsingAdo_OnClick(object sender, EventArgs e)
         {
-            var userRepo = new Code.ADO.NET.UserRepository();
-            var user = userRepo.GetUser(UserId);
-
-            RenderSearchResult(user);
+            var searchresult = SearchUserById(UserId, new Code.ADO.NET.UserRepository());
+            RenderSearchResult(searchresult);
         }
 
         protected void btnSearchUsingStronglyTypedDataset_OnClick(object sender, EventArgs e)
         {
-            var userRepo = new Code.StronglyTypedDataset.UserRepository(); 
-            var user = userRepo.GetUser(UserId);
-
-            RenderSearchResult(user);
+            var searchresult = SearchUserById(UserId, new Code.StronglyTypedDataset.UserRepository());
+            RenderSearchResult(searchresult);
         }
         
         protected void btnSearchUsingLinqToSql_OnClick(object sender, EventArgs e)
         {
-            var userRepo = new Code.LINQ.to.SQL.UserRepository();
-            var user = userRepo.GetUser(UserId);
-
-            RenderSearchResult(user);
+            var searchresult = SearchUserById(UserId, new Code.LINQ.to.SQL.UserRepository());
+            RenderSearchResult(searchresult);
         }
 
         protected void btnSearchUsingEntityFramework_OnClick(object sender, EventArgs e)
         {
-            var userRepo = new Code.EntityFramework.UserRepository();
-            var user = userRepo.GetUser(UserId);
-
-            RenderSearchResult(user);
+            var searchresult = SearchUserById(UserId, new Code.EntityFramework.UserRepository());
+            RenderSearchResult(searchresult);
         }
 
+
+
+        private SearchResult<User> SearchUserById(int id, IUserRepository userRepo)
+        {
+            var stopWatch = Stopwatch.StartNew();
+            var user = userRepo.GetUser(id);
+            stopWatch.Stop();
+
+            return new SearchResult<User>()
+            {
+                Data = user,
+                PerformanceCost = stopWatch.Elapsed
+            };
+        }
         
-        private void RenderSearchResult(User searchResult)
+        private void RenderSearchResult(SearchResult<User> searchResult)
         {
             // clear previous searchresult
+            litPerformanceCost.Text = "";
             txtSearchResult_UserId.Text = "";
             txtSearchResult_Firstname.Text = "";
             txtSearchResult_Lastname.Text = "";
@@ -71,17 +88,19 @@ namespace Labs.DataAccess.Web
             searchResultNoHit.Visible = false;
 
             // no searchresult
-            if (searchResult == null)
+            if (searchResult.Data == null)
             {
                 searchResultNoHit.Visible = true;
                 return;
             }
 
             searchResultHit.Visible = true;
-            txtSearchResult_UserId.Text = searchResult.Id.ToString();
-            txtSearchResult_Firstname.Text = searchResult.Firstname;
-            txtSearchResult_Lastname.Text = searchResult.Lastname;
-            txtSearchResult_Email.Text = searchResult.Email;
+            litPerformanceCost.Text = string.Format("(search took {0}ms)", searchResult.PerformanceCost.TotalMilliseconds);
+            var user = searchResult.Data;
+            txtSearchResult_UserId.Text = user.Id.ToString();
+            txtSearchResult_Firstname.Text = user.Firstname;
+            txtSearchResult_Lastname.Text = user.Lastname;
+            txtSearchResult_Email.Text = user.Email;
         }
     }
 }

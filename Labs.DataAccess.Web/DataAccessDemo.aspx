@@ -24,6 +24,11 @@
 		.searchResult {
 			
 		}
+		.searchResultPerformace {
+		    font-size: smaller;
+		    font-style: italic;
+		    margin-bottom: 20px;
+		}
 		.searchLabel {
 			float: left;
 			width: 200px;
@@ -50,7 +55,10 @@
 		</div>
 
 		<div class="searchResult">
-			<h1>Searchresult</h1>
+			
+            <div class="searchResultPerformace">
+                <asp:Literal runat="server" ID="litPerformanceCost"></asp:Literal>
+            </div>
 			
 			<asp:PlaceHolder runat="server" ID="searchResultHit" Visible="False">
 				<div class="searchLabel">Id:</div>

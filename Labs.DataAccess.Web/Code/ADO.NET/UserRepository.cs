@@ -25,7 +25,7 @@ namespace Labs.DataAccess.Web.Code.ADO.NET
                 
                 connection.Open();
                 var reader = command.ExecuteReader();
-                while (reader.Read())
+                if (reader.Read())
                 {
                     return new User()
                     {
