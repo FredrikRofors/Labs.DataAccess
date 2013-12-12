@@ -44,6 +44,7 @@
 		<div class="searchCriteria">
 			 Enter user id: <asp:TextBox runat="server" ID="txtUserId"></asp:TextBox>
 			<asp:Button runat="server" ID="btnSearchUsingAdo" Text="ADO.NET search" OnClick="btnSearchUsingAdo_OnClick"/>
+            <asp:Button runat="server" ID="btnSearchUsingStronglyTypedDataset" Text="Strongly Typed Dataset search" OnClick="btnSearchUsingStronglyTypedDataset_OnClick"/>
 			<asp:Button runat="server" ID="btnSearchUsingLinqToSql" Text="LINQ to SQL search" OnClick="btnSearchUsingLinqToSql_OnClick"/>
             <asp:Button runat="server" ID="btnSearchUsingEntityFramework" Text="EntityFramework search" OnClick="btnSearchUsingEntityFramework_OnClick"/>
 		</div>

@@ -35,6 +35,14 @@ namespace Labs.DataAccess.Web
             RenderSearchResult(user);
         }
 
+        protected void btnSearchUsingStronglyTypedDataset_OnClick(object sender, EventArgs e)
+        {
+            var userRepo = new Code.StronglyTypedDataset.UserRepository(); 
+            var user = userRepo.GetUser(UserId);
+
+            RenderSearchResult(user);
+        }
+        
         protected void btnSearchUsingLinqToSql_OnClick(object sender, EventArgs e)
         {
             var userRepo = new Code.LINQ.to.SQL.UserRepository();
@@ -51,8 +59,7 @@ namespace Labs.DataAccess.Web
             RenderSearchResult(user);
         }
 
-
-
+        
         private void RenderSearchResult(User searchResult)
         {
             // clear previous searchresult

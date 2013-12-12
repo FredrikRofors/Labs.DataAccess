@@ -84,6 +84,12 @@
       <DependentUpon>LinqToSqlDbContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Code\LINQ.to.SQL\UserRepository.cs" />
+    <Compile Include="Code\StronglyTypedDataset\StronglyTypedDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StronglyTypedDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Code\StronglyTypedDataset\UserRepository.cs" />
     <Compile Include="Code\User.cs" />
     <Compile Include="DataAccessDemo.aspx.cs">
       <DependentUpon>DataAccessDemo.aspx</DependentUpon>
@@ -107,6 +113,17 @@
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>LinqToSqlDbContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Code\StronglyTypedDataset\StronglyTypedDataset.xsc">
+      <DependentUpon>StronglyTypedDataset.xsd</DependentUpon>
+    </None>
+    <None Include="Code\StronglyTypedDataset\StronglyTypedDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StronglyTypedDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Code\StronglyTypedDataset\StronglyTypedDataset.xss">
+      <DependentUpon>StronglyTypedDataset.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
