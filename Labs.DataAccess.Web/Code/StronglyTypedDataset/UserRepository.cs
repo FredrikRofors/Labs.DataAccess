@@ -11,7 +11,7 @@ namespace Labs.DataAccess.Web.Code.StronglyTypedDataset
     /// </summary>
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public User GetUser(int id)
+        public User GetById(int id)
         {
             using (var usersAdapter = new StronglyTypedDatasetTableAdapters.UsersTableAdapter()
                 {

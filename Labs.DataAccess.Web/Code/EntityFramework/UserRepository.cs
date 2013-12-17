@@ -7,7 +7,7 @@ namespace Labs.DataAccess.Web.Code.EntityFramework
     /// </summary>
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public Code.User GetUser(int id)
+        public Code.User GetById(int id)
         {
             using (var context = new EntityFrameworkDbContext())
             {

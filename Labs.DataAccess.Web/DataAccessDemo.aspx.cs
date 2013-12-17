@@ -66,7 +66,7 @@ namespace Labs.DataAccess.Web
         private SearchResult<User> SearchUserById(int id, IUserRepository userRepo)
         {
             var stopWatch = Stopwatch.StartNew();
-            var user = userRepo.GetUser(id);
+            var user = userRepo.GetById(id);
             stopWatch.Stop();
 
             return new SearchResult<User>()

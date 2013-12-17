@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -16,28 +17,36 @@ namespace Labs.DataAccess.Web.Code.ADO.NET
         /// </summary>
         /// <param name="id">Key identifying a user.</param>
         /// <returns>The user if found, else null.</returns>
-        public User GetUser(int id)
+        public User GetById(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var sql = "select * from users where id = " + id;
-                var command = new SqlCommand(sql, connection);
-                
+                var command = new SqlCommand("select * from users where id = @userId", connection);
+                command.Parameters.AddWithValue("userId", id);
                 connection.Open();
+
                 var reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    return new User()
-                    {
-                        Id = (int)reader["Id"],
-                        Firstname = (string)reader["Firstname"],
-                        Lastname = (string)reader["Lastname"],
-                        Email = (string)reader["Email"]
-                    };
+                    return Map(reader); 
                 }
 
                 return null;
             }
+        }
+
+        private Code.User Map(IDataRecord record)
+        {
+            if (record == null)
+                return null;
+
+            return new User()
+            {
+                Id = (int)record["Id"],
+                Firstname = (string)record["Firstname"],
+                Lastname = (string)record["Lastname"],
+                Email = (string)record["Email"]
+            };
         }
     }
 }

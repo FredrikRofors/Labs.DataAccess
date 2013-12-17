@@ -7,6 +7,6 @@
         /// </summary>
         /// <param name="id">Key identifying a user.</param>
         /// <returns>The user if found, else null.</returns>
-        User GetUser(int id);
+        User GetById(int id);
     }
 }
